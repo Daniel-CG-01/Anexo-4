@@ -52,4 +52,36 @@ public class EmpleadoDAO {
 			}
 		}
 	}
+	
+	//Selección simple
+	public Empleado selectEmpleadoById(int id) {
+		Transaction transaction = null;
+		Empleado emp = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+			emp = session.get(Empleado.class, id);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction!=null) {
+				transaction.rollback();
+			}
+		}
+		return emp;
+	}
+	
+	//Selección múltiple
+	public List<Empleado> selectAllEmpleados() {
+		Transaction transaction = null;
+		List<Empleado> empleados = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			transaction = session.beginTransaction();
+			empleados = session.createQuery("FROM Empleado", Empleado.class).getResultList();
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction!=null) {
+				transaction.rollback();
+			}
+		}
+		return empleados;
+	}
 }

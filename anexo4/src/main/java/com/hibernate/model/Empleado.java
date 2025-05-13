@@ -3,7 +3,7 @@ package com.hibernate.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
 
 @Entity
 @Table(name="empleado")
@@ -22,4 +22,15 @@ public class Empleado {
 	
 	@Column(name="foto")
 	String foto;
+
+	public Empleado() {
+		super();
+	}
+	
+	public Empleado(String nombre, int edad, String foto) {
+		super();
+		this.nombre = nombre;
+		this.edad = edad;
+		this.foto = foto;
+	}
 }
